@@ -6,6 +6,8 @@ using System.Linq;
 using System.Threading.Tasks;
 using Baryon.Data;
 using Baryon.Models;
+using Baryon.Services;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
@@ -37,7 +39,8 @@ namespace Baryon
             services.AddIdentity<ApplicationUser, ApplicationRole>()
                 .AddDefaultTokenProviders();
             services.AddMvc();
-            
+            services.AddSingleton<IAuthorizationHandler, EditHandler>();
+
 
         }
 

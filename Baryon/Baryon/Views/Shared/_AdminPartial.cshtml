@@ -1,0 +1,12 @@
+﻿@using Microsoft.AspNetCore.Identity
+@using Baryon.Models
+
+@inject SignInManager<ApplicationUser> SignInManager
+@inject UserManager<ApplicationUser> UserManager
+
+@if (SignInManager.IsSignedIn(User) && User.IsInRole("ADMIN"))
+{
+    <li><a asp-area="" asp-controller="Admin" asp-action="Home">Admin</a></li>
+    <li><a asp-area="" asp-controller="Admin" asp-action="ModRequest">Requests</a></li>
+}
+

@@ -16,13 +16,6 @@
                     <td>
                         <a asp-Action="Sub" asp-route-id="@forum.FName">@forum.FName</a>
                     </td>
-                    <td>
-                        <form asp-action="Subscribe">
-                            <input type="hidden" asp-for="@Model.current.FName" value="@forum.FName" />
-                            <button type="submit">Subscribe</button>
-
-                        </form>
-                    </td>
                 </tr>
                 <tr>
                     <td>Subsribers:</td>

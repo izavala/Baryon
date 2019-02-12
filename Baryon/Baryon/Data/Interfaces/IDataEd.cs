@@ -1,4 +1,6 @@
 ﻿using Baryon.Models;
+using Baryon.ViewModels;
+using Baryon.ViewModels.AdminViewModels;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -14,6 +16,6 @@ namespace Baryon.Data
         void RemoveComment(Comment model);
         void LikePost(int id);
         void LikeComment(int id);
-       // void UpdateModRequest(ModRequestViewModel update);
+        void UpdateModRequest(ModRequestViewModel update);
     }
 }

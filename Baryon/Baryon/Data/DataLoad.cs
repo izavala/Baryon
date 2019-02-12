@@ -4,6 +4,8 @@ using System.Data;
 using System.Linq;
 using System.Threading.Tasks;
 using Baryon.Models;
+using Baryon.ViewModels;
+using Baryon.ViewModels.AdminViewModels;
 using Dapper;
 
 namespace Baryon.Data
@@ -88,6 +90,26 @@ namespace Baryon.Data
             }
             return false;
         }
+        public ModRequestViewModel GetModRequest()
+        {
+            ModRequestViewModel my = new ModRequestViewModel();
+            my._Requests = _connection.Query<Request>("SELECT * FROM Request WHERE Pending = 1");
+            return my;
+        }
+
+        public bool HasRequested(Forum reqForum, string user)
+        {
+            ModRequestViewModel my = new ModRequestViewModel();
+            my._Requests = _connection.Query<Request>("SELECT * FROM Request WHERE Pending = 1");
+            if (my._Requests.Count() == 0) return false; 
+            foreach(var request in my._Requests)
+            {
+                if (reqForum.FName == request.ForumID && request.Pending == true && request.UID == user)
+                    return true; 
+            }
+            return false;
+        }
+
 
         #region IDisposable Support
         private bool disposedValue = false; // To detect redundant calls
@@ -122,6 +144,9 @@ namespace Baryon.Data
             // TODO: uncomment the following line if the finalizer is overridden above.
             // GC.SuppressFinalize(this);
         }
+
+       
+
         #endregion
 
 

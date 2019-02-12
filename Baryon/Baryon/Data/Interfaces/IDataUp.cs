@@ -1,4 +1,6 @@
 ﻿using Baryon.Models;
+using Baryon.ViewModels;
+using Baryon.ViewModels.AdminViewModels;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,7 +12,7 @@ namespace Baryon.Data
     {
         int SetComment(Comment comment);
         void SetPost(Post post);
-       // int SetForum(AdminCreateViewModel model);
+        int SetForum(AdminCreateViewModel model);
         bool SetAccess(string forum, string user);
         void SetModRequest(string request, string _user);
         

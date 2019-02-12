@@ -1,0 +1,29 @@
+﻿<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Forum</title>
+</head>
+<body>
+    <div>
+        
+            <h1>@Model.FId.ForumId</h1>
+        
+        @foreach (var post in Model.Posts)
+        {
+            <div>
+                <a asp-Action="AdminComment" asp-route-id="@post.PostId">@post.PostTitle</a>
+            </div>
+            <table>
+                <tr>@post.PostText  </tr>
+                <tr>
+                    <td>Likes: @post.Likes</td>
+                </tr>
+            </table>
+            <a asp-Action="RemovePost" asp-route-id="@post.PostId">Remove Post</a>
+        }
+        <div> <a asp-Action="CreatePost" asp-route-id="@Model.FId.ForumId">Add New Post</a></div>
+    </div>
+</body>
+</html>

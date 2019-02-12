@@ -4,6 +4,8 @@ using System.Data;
 using System.Linq;
 using System.Threading.Tasks;
 using Baryon.Models;
+using Baryon.ViewModels;
+using Baryon.ViewModels.AdminViewModels;
 using Dapper;
 
 namespace Baryon.Data
@@ -38,7 +40,7 @@ namespace Baryon.Data
             foreach (var post in posts)
             {
                 _connection.Execute($@"DELETE FROM Comments 
-                                              WHERE Thread = @{nameof(post.PostId)}", new { post });
+                                              WHERE Thread = @{nameof(post.PostId)}", new { post.PostId });
             }
             //Removes all posts from the database
             _connection.Execute($@"DELETE FROM Post 
@@ -48,7 +50,7 @@ namespace Baryon.Data
         public void RemoveComment(Comment comment)
         { 
             _connection.Execute($@"DELETE FROM Comments 
-                                           WHERE CommentId = @{nameof(comment.CommentId)}",  new { comment });
+                                           WHERE CommentId = @{nameof(comment.CommentId)}",  new { comment.CommentId });
         }
 
         public void RemoveForum(Forum forum)
@@ -56,7 +58,7 @@ namespace Baryon.Data
             //Removes all post related to forum using RemoveAllPost method before removing forum from database
             RemoveAllPost(forum.FName);
             _connection.Execute($@"DELETE FROM Forum 
-                                          WHERE FId = @{nameof(forum.FId)}", new { forum });
+                                          WHERE FId = @{nameof(forum.FId)}", new { forum.FId });
         }
 
         public void RemovePost(Post post)
@@ -65,14 +67,19 @@ namespace Baryon.Data
             //post to be removed
             if (post.PostTitle != "Forum Description")
             {
-                var found = _connection.QueryFirstOrDefault<Post>($@"SELECT * FROM Post WHERE PostId = @{post.PostId} ", post);
+                var found = _connection.QueryFirstOrDefault<Post>($@"SELECT * FROM Post WHERE PostId = @{nameof(post.PostId)} ", new { post.PostId });
                 if (found.PostTitle != "Forum Description")
                 {
                     _connection.Execute($@"DELETE FROM Comments 
-                                                  WHERE Thread = @{nameof(post.PostId)}", new { post });
-                    _connection.Execute($@"DELETE FROM Post WHERE PostId = @{nameof(post.PostId)}", new { post });
+                                                  WHERE Thread = @{nameof(post.PostId)}", new { post.PostId });
+                    _connection.Execute($@"DELETE FROM Post WHERE PostId = @{nameof(post.PostId)}", new { post.PostId });
                 }
             }
+        }
+        public void UpdateModRequest(ModRequestViewModel update)
+        {
+            _connection.Execute($@"UPDATE Request SET Pending = @{nameof(update.response.Pending)}, Status = @{nameof(update.response.Status)} 
+                                                      WHERE Id = @{nameof(update.response.Id)}", new { update.response.Pending , update.response.Status, update.response.Id});
         }
 
         #region IDisposable Support
@@ -108,6 +115,8 @@ namespace Baryon.Data
             // TODO: uncomment the following line if the finalizer is overridden above.
             // GC.SuppressFinalize(this);
         }
+
+    
         #endregion
     }
 }

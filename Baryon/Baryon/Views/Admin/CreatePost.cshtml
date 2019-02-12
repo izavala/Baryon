@@ -1,0 +1,29 @@
+﻿@model Post
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Add a new Post</title>
+</head>
+<body>
+    <form method="post">
+
+        <div>
+
+            <label asp-for="PostTitle"></label>
+            <input asp-for="PostTitle" />
+            <span asp-validation-for="PostTitle"></span>
+        </div>
+        <div>
+            <p>Add Post Text</p>
+            <label asp-for="PostText"></label>
+            <input asp-for="PostText" />
+            <span asp-validation-for="PostText"></span>
+            <input type="hidden" asp-for="ForumId" value="@Model.ForumId" />
+        </div>
+        <div>
+            <input type="submit" name="Save" value="Save" />
+        </div>
+    </form>
+
+</body>
+</html>

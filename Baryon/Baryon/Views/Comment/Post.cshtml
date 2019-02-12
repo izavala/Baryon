@@ -1,0 +1,24 @@
+﻿@model Comment
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Comment</title>
+</head>
+<body>
+    <form method="post">
+
+        <div>
+            
+            <label asp-for="Text"></label>
+            <input asp-for="Text" />
+            <span asp-validation-for="Text"></span>
+            <input type="hidden" asp-for="Thread" value="@Model.Thread" />
+        </div>
+        <div>
+            <input type="submit" name="Save" value="Submit" />
+
+        </div>
+    </form>
+
+</body>
+</html>

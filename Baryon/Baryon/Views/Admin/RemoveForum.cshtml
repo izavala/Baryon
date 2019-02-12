@@ -1,0 +1,20 @@
+﻿@model Forum
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title>Dark Matter</title>
+</head>
+<body>
+
+    <h1>Are you sure you would like to remove the following Forum?:</h1>
+
+    <p>Doing this will remove all of the post and comments associated with the Forum.</p>
+    <p>@Model.FName</p>
+    <p>Subscribers: @Model.FSubscribers Number of posts @Model.FPosts</p>
+    <form method="post">
+
+        <<input type="hidden" asp-for="FId" value="@Model.FId" />
+        <<input type="hidden" asp-for="FName" value="@Model.FName" />
+        <input type="submit" name="Save" value="Submit" />
+    </form>
+</body>
+</html>

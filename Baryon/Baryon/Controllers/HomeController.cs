@@ -63,7 +63,10 @@ namespace Baryon.Controllers
         [Authorize]
         public IActionResult RequestAccess(Forum reqForum)
         {
-            return (View(reqForum));
+            if (_load.HasRequested(reqForum, User.Identity.Name))
+                return (View("AlreadyRequested"));
+            else
+                return (View(reqForum));
         }
 
         public IActionResult Subscribe(Forum id)

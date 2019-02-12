@@ -13,6 +13,7 @@ namespace Baryon.Models
         public string FName { get; set; }
         public int FId { get; set; }
         public int FPosts { get; set; }
+        [Display(Name = "Is this forum private?")]
         public bool HasLock { get; set; }
     }
 }

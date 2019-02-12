@@ -1,0 +1,26 @@
+﻿<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Forum</title>
+</head>
+<body>
+    <div>
+        <h1>@Model.FId.ForumId</h1>
+
+        @foreach (var post in Model.Posts)
+        {
+            <div>
+                <a asp-Controller="Comment" asp-Action="Get" asp-route-id="@post.PostId">@post.PostTitle</a>
+            </div>
+            <table>
+                <tr>@post.PostText  </tr>
+                <tr>
+                    <td>Likes: @post.Likes</td>
+                </tr>
+            </table>
+        }
+    </div>
+</body>
+</html>

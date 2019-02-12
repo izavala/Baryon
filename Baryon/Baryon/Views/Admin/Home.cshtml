@@ -1,0 +1,33 @@
+﻿<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Admin Page</title>
+</head>
+<body>
+    <div>
+        <h1>Excisting Forums</h1>
+        <table>
+            @foreach (var forum in Model.Forums)
+            {
+                <tr>
+                    <td>
+                        <a asp-Action="Sub" asp-route-id="@forum.FName">@forum.FName</a>
+                    </td>
+                    <td>
+                        <a asp-Action="RemoveForum" asp-route-id="@forum.FName">Remove</a>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td>Subsribers:</td>
+                    <td>@forum.FSubscribers</td>
+                </tr>
+
+            }
+        </table>
+    </div>
+    <div> <a asp-controller="Admin" asp-Action="CreateForum" >Add New Forum</a></div>
+</body>
+</html>

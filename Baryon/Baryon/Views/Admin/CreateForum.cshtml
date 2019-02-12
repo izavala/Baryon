@@ -1,0 +1,32 @@
+﻿@model AdminCreateViewModel
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Create A New Forum</title>
+</head>
+<body>
+    <form method="post">
+
+        <div>
+
+            <label asp-for="newForum.FName"></label>
+            <input asp-for="newForum.FName" />
+            <span asp-validation-for="newForum.FName"></span>
+        </div>
+        <div>
+            <p>Set Description of New Forum</p>
+            <label asp-for="initPost.PostText"></label>
+            <input asp-for="initPost.PostText" />
+            <span asp-validation-for="initPost.PostText"></span>
+        </div>
+        <label asp-for="newForum.HasLock"></label>
+        <input asp-for="newForum.HasLock" typeof="checkbox" value="true" checked>
+            @*<option>Please select one</option>*@
+        @*</input>*@
+        <div>
+            <input type="submit" name="Save" value="Save" />
+        </div>
+    </form>
+
+</body>
+</html>

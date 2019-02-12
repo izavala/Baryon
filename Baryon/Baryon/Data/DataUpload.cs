@@ -4,6 +4,8 @@ using System.Data;
 using System.Linq;
 using System.Threading.Tasks;
 using Baryon.Models;
+using Baryon.ViewModels;
+using Baryon.ViewModels.AdminViewModels;
 using Dapper;
 
 namespace Baryon.Data
@@ -36,7 +38,7 @@ namespace Baryon.Data
             //Sets comment and returns the unique comment Id 
             _connection.Query<int>($@"INSERT INTO Comments 
                                (Thread, Text, Likes, UID, Date)
-                                Values (@{nameof(comment.Thread)}, @{nameof(comment.Text)}, @{nameof(comment.Likes)}, @{nameof(comment.UID)},@{nameof(comment.Date)});
+                                Values (@{nameof(comment.Thread)}, @{nameof(comment.Text)}, @{nameof(comment.Likes)}, @{nameof(comment.UID)},@Date);
                                 SELECT CAST(SCOPE_IDENTITY() as int)", new {  comment.Thread,  comment.Text, comment.Likes,  comment.UID, Date = DateTime.Now.Date }).SingleOrDefault();
 
             return comment.Thread;
@@ -45,7 +47,7 @@ namespace Baryon.Data
         public void SetModRequest(string request, string _user)
         {
             _connection.Execute($@"INSERT INTO Request(ForumID, UID, Pending , Status)
-                                Values( @{nameof(request)}, @{nameof(_user)}, @{true}, @{false})", new { request, _user });
+                                Values( @{nameof(request)}, @{nameof(_user)}, @pending, @status)", new { request, _user,pending = true,status = 0 });
         }
 
         public void SetPost(Post post)
@@ -53,6 +55,17 @@ namespace Baryon.Data
             _connection.Execute($@"INSERT INTO Post (UID, Likes, Date, PostText,PostTitle,ForumId) Values (@{nameof(post.UID)}, @{nameof(post.Likes)}, @Date, @{nameof(post.PostText)},@{nameof(post.PostTitle)},@{nameof(post.ForumId)})", new {  post.UID,  post.Likes, Date = DateTime.Now.Date, post.PostText,  post.PostTitle,  post.ForumId });
         }
 
+        public int SetForum(AdminCreateViewModel model)
+        {
+            var aa = _connection.Query<Forum>($@"SELECT * FROM Forum WHERE FName = @{nameof(model.newForum.FName)} ", new {  model.newForum.FName });
+            if (aa.Count() == 0)
+            {
+                var ee = _connection.Query<int>($@"INSERT INTO Forum (FName, FSubscribers, FPosts,HasLock) Values (@{nameof(model.newForum.FName)}, @FSubscribers, @FPosts,@{nameof(model.newForum.HasLock)});SELECT CAST(SCOPE_IDENTITY() as int)", new { model.newForum.FName,  FSubscribers = 0, FPosts = 1 , model.newForum.HasLock }).SingleOrDefault();
+                _connection.Execute($@"INSERT INTO Post (UID, Likes, Date, PostText,PostTitle,ForumId) Values (@{nameof(model.initPost.UID)}, @{nameof(model.initPost.Likes)}, @Date, @{nameof(model.initPost.PostText)},@PostTitle,@{nameof(model.newForum.FName)})", new { model.newForum.FName, model.initPost.UID, Date = DateTime.Now,  PostTitle = "Forum Description", model.initPost.PostText, model.initPost.Likes });
+                return 1;
+            }
+            return 0;
+        }
         #region IDisposable Support
         private bool disposedValue = false; // To detect redundant calls
 
@@ -86,6 +99,8 @@ namespace Baryon.Data
             // TODO: uncomment the following line if the finalizer is overridden above.
             // GC.SuppressFinalize(this);
         }
+
+        
         #endregion
     }
 }
