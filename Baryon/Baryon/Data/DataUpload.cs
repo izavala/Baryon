@@ -20,14 +20,14 @@ namespace Baryon.Data
         public bool SetAccess(string forum, string user)
         {
             var permissions = _connection.Query<FAccess>($@"SELECT * FROM FAcces 
-                                                                     WHERE UID = @{nameof(user)}", user);
+                                                                     WHERE UID = @{nameof(user)}", new { user });
 
             foreach (var permission in permissions)
             {
                 if (permission.ForumID == forum)
                     return false;
             }
-            _connection.Execute("INSERT INTO FAcces (ForumID, UID) Values (@{forum}, @{user})", new { forum, user } );
+            _connection.Execute($@"INSERT INTO FAcces (ForumID, UID) Values (@{nameof(forum)}, @{nameof(user)})", new { forum, user } );
             return true;
         }
 
@@ -45,7 +45,7 @@ namespace Baryon.Data
         public void SetModRequest(string request, string _user)
         {
             _connection.Execute($@"INSERT INTO Request(ForumID, UID, Pending , Status)
-                                Values( @{request}, @{_user}, @{true}, @{false})", new { request, _user });
+                                Values( @{nameof(request)}, @{nameof(_user)}, @{true}, @{false})", new { request, _user });
         }
 
         public void SetPost(Post post)

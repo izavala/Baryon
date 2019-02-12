@@ -8,7 +8,6 @@
     <Folder Include="ViewModels\AccountViewModels\" />
     <Folder Include="ViewModels\ManageViewModels\" />
     <Folder Include="ViewModels\AdminViewModels\" />
-    <Folder Include="Views\" />
     <Folder Include="wwwroot\" />
   </ItemGroup>
 

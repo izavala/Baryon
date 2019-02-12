@@ -26,19 +26,14 @@ namespace BaryonTest
         [Fact]
         public void TestForumUpload()
         {
-            var testComment = new Comment {CommentId = 4006, Likes = 0 , Text = "Comment Text", Thread = 1 };
+            var testComment = new Comment{CommentId = 4006, Likes = 0 , Text = "Comment Text", Thread = 1 };
             dataUpload.SetComment(testComment);
             var result = dataLoad.GetComment(4006);
-            Assert.Equal(testComment.CommentId , result.CommentId);
             Assert.Equal(testComment.Likes, result.Likes);
             Assert.Equal(testComment.Text, result.Text);
             Assert.Equal(testComment.Thread, result.Thread);
-            
-            
-
+           
         }
-
-       
 
         public void Dispose()
         {
