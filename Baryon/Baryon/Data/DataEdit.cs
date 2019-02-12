@@ -56,7 +56,7 @@ namespace Baryon.Data
             //Removes all post related to forum using RemoveAllPost method before removing forum from database
             RemoveAllPost(forum.FName);
             _connection.Execute($@"DELETE FROM Forum 
-                                          WHERE FId = @{forum.FId}", forum);
+                                          WHERE FId = @{nameof(forum.FId)}", new { forum });
         }
 
         public void RemovePost(Post post)
@@ -69,8 +69,8 @@ namespace Baryon.Data
                 if (found.PostTitle != "Forum Description")
                 {
                     _connection.Execute($@"DELETE FROM Comments 
-                                                  WHERE Thread = @{post.PostId}", post);
-                    _connection.Execute($@"DELETE FROM Post WHERE PostId = @{post.PostId}", post);
+                                                  WHERE Thread = @{nameof(post.PostId)}", new { post });
+                    _connection.Execute($@"DELETE FROM Post WHERE PostId = @{nameof(post.PostId)}", new { post });
                 }
             }
         }
