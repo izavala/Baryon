@@ -6,12 +6,13 @@ using System.Threading.Tasks;
 
 namespace Baryon.Data
 {
-    public interface IDataUp
+    public interface IDataUp : IDisposable
     {
         int SetComment(Comment comment);
         void SetPost(Post post);
        // int SetForum(AdminCreateViewModel model);
         bool SetAccess(string forum, string user);
         void SetModRequest(string request, string _user);
+        
     }
 }

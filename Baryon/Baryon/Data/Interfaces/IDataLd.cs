@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Baryon.Data
 {
-    public interface IDataLd
+    public interface IDataLd : IDisposable
     {
         IEnumerable<Forum> GetAll();
         Forum GetForum(string fname);
@@ -19,5 +19,7 @@ namespace Baryon.Data
         string GetUser(string id);
         bool CheckLock(string id);
         bool HasForumAccess(string fID, string user);
+
+
     }
 }

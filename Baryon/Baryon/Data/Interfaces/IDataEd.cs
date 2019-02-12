@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Baryon.Data
 {
-    public interface IDataEd
+    public interface IDataEd : IDisposable
     {
         void RemoveForum(Forum model);
         void RemoveAllPost(string model);

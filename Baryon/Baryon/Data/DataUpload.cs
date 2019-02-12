@@ -36,7 +36,7 @@ namespace Baryon.Data
             //Sets comment and returns the unique comment Id 
             _connection.Query<int>($@"INSERT INTO Comments 
                                (Thread, Text, Likes, UID, Date)
-                                Values (@{comment.Thread}, @{comment.Text}, @{comment.Likes}, @{comment.UID},@{comment.Date});
+                                Values (@{nameof(comment.Thread)}, @{nameof(comment.Text)}, @{nameof(comment.Likes)}, @{nameof(comment.UID)},@{nameof(comment.Date)});
                                 SELECT CAST(SCOPE_IDENTITY() as int)", new {  comment.Thread,  comment.Text, comment.Likes,  comment.UID, Date = DateTime.Now.Date }).SingleOrDefault();
 
             return comment.Thread;
@@ -50,7 +50,42 @@ namespace Baryon.Data
 
         public void SetPost(Post post)
         {
-            _connection.Execute($@"INSERT INTO Post (UID, Likes, Date, PostText,PostTitle,ForumId) Values (@{post.User}, @{post.Likes}, @Date, @{post.PostText},@{post.PostTitle},@{post.ForumId})", new {  post.User,  post.Likes, Date = DateTime.Now.Date, post.PostText,  post.PostTitle,  post.ForumId });
+            _connection.Execute($@"INSERT INTO Post (UID, Likes, Date, PostText,PostTitle,ForumId) Values (@{nameof(post.UID)}, @{nameof(post.Likes)}, @Date, @{nameof(post.PostText)},@{nameof(post.PostTitle)},@{nameof(post.ForumId)})", new {  post.UID,  post.Likes, Date = DateTime.Now.Date, post.PostText,  post.PostTitle,  post.ForumId });
         }
+
+        #region IDisposable Support
+        private bool disposedValue = false; // To detect redundant calls
+
+        protected virtual void Dispose(bool disposing)
+        {
+            if (!disposedValue)
+            {
+                if (disposing)
+                {
+                    _connection.Dispose();
+                }
+
+                // TODO: free unmanaged resources (unmanaged objects) and override a finalizer below.
+                // TODO: set large fields to null.
+
+                disposedValue = true;
+            }
+        }
+
+        // TODO: override a finalizer only if Dispose(bool disposing) above has code to free unmanaged resources.
+        // ~DataUpload() {
+        //   // Do not change this code. Put cleanup code in Dispose(bool disposing) above.
+        //   Dispose(false);
+        // }
+
+        // This code added to correctly implement the disposable pattern.
+        public void Dispose()
+        {
+            // Do not change this code. Put cleanup code in Dispose(bool disposing) above.
+            Dispose(true);
+            // TODO: uncomment the following line if the finalizer is overridden above.
+            // GC.SuppressFinalize(this);
+        }
+        #endregion
     }
 }

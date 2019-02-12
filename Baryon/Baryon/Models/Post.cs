@@ -12,7 +12,7 @@ namespace Baryon.Models
         public string PostTitle { get; set; }
         public string ForumId { get; set; }
         public int PostId { get; set; }
-        public string User { get; set; }
+        public string UID { get; set; }
         public DateTime Date { get; set; }
     }
 }
