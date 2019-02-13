@@ -114,6 +114,7 @@ namespace Baryon.Controllers
             }
         }
 
+        [HttpGet]
         public IActionResult AdminComment(int id)
         {
             var post = _load.GetPost(id);
@@ -158,6 +159,13 @@ namespace Baryon.Controllers
             _edit.UpdateModRequest(req);
             return Redirect(nameof(ModRequest));
         }
+        public IActionResult RemoveComment(int id )
+        {
+            
+            _edit.RemoveComment(id);
+            return View("Home");
+        }
         
+
     }
 }

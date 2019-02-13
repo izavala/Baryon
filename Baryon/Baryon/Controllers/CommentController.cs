@@ -2,6 +2,7 @@
 using Baryon.Models;
 using Baryon.ViewModels;
 using Baryon.ViewModels.CommentViewModels;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
@@ -24,6 +25,7 @@ namespace Baryon.Controllers
             _upload = upload;
         }
         
+        [HttpGet]
         public IActionResult Get(int id)
         {
             
@@ -32,6 +34,7 @@ namespace Baryon.Controllers
             { Comments = _load.GetComments(id), PostInf = post };
             return View(model);
         }
+        [Authorize]
         [HttpGet]
         public IActionResult Post(int id)
         {
@@ -39,6 +42,7 @@ namespace Baryon.Controllers
             model.Thread = id;
             return View(model);
         }
+        [Authorize]
         [HttpPost]
         [ValidateAntiForgeryToken]
         public IActionResult Post(Comment model)
@@ -58,11 +62,14 @@ namespace Baryon.Controllers
             }
         }
 
+        [Authorize]
         public IActionResult PostLike(CommentViewModel comment)
         {
             _edit.LikePost(comment.PostInf.PostId);
             return RedirectToAction(nameof(Get), new { Id = comment.PostInf.PostId });
         }
+        [Authorize]
+        [HttpGet]
         public IActionResult CommentLike(CommentViewModel id)
         {
             _edit.LikeComment(id.CommentId.CommentId);

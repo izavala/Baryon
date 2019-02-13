@@ -13,7 +13,7 @@ namespace Baryon.Data
         void RemoveForum(Forum model);
         void RemoveAllPost(string model);
         void RemovePost(Post model);
-        void RemoveComment(Comment model);
+        void RemoveComment(int comment);
         void LikePost(int id);
         void LikeComment(int id);
         void UpdateModRequest(ModRequestViewModel update);

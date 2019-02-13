@@ -47,10 +47,10 @@ namespace Baryon.Data
                                           WHERE ForumId = @{nameof(forumId)}", new { forumId });
         }
 
-        public void RemoveComment(Comment comment)
+        public void RemoveComment(int comment)
         { 
             _connection.Execute($@"DELETE FROM Comments 
-                                           WHERE CommentId = @{nameof(comment.CommentId)}",  new { comment.CommentId });
+                                           WHERE CommentId = @{nameof(comment)}",  new { comment });
         }
 
         public void RemoveForum(Forum forum)
