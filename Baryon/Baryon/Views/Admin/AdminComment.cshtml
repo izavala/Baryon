@@ -1,0 +1,36 @@
+﻿
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Comments</title>
+</head>
+<body>
+    <div>
+        <h1>@Model.PostInf.PostTitle</h1>
+        <h1>@Model.PostInf.PostText</h1>
+        <table>
+            @foreach (var comment in Model.Comments)
+            {
+                <tr>
+                    <td>
+                        @comment.Text
+                    </td>
+                </tr>
+                <tr>
+                    <td>User: @comment._User</td>
+                    <td>Likes: @comment.Likes</td>
+                    <td>Comment Date: @comment.Date</td>
+                </tr>
+                <tr>
+                    <td>
+                        <a asp-action="RemoveComment" asp-route-id="@comment.CommentId">Remove Comment</a>
+                    </td>
+
+                </tr>
+            }
+        </table>
+    </div>
+    
+
+</body>
+</html>

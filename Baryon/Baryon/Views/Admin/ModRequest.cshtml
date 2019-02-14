@@ -1,0 +1,45 @@
+﻿@model ModRequestViewModel
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Admin Page</title>
+</head>
+<body>
+    <div>
+        <h1>Pending Requests</h1>
+        <table>
+            @foreach (var request in Model._Requests)
+            {
+                <tr>
+                    <td>
+                       User: @request.UID Forum: @request.ForumID
+                    </td>
+                    <td>
+                        <form asp-action="ProcessMod">
+                            <input type="hidden" asp-for="@Model.response.Id" value="@request.Id" />
+                            <input type="hidden" asp-for="@Model.response.ForumID" value="@request.ForumID" />
+                            <input type="hidden" asp-for="@Model.response.UID" value="@request.UID" />
+                            <input type="hidden" asp-for="@Model.response.Pending" value=0 />
+                            <input type="hidden" asp-for="@Model.response.Status" value=1 />
+                            <button type="submit">Accept</button>
+                        </form>
+                    </td>
+                    <td>
+                        <form asp-action="ProcessMod">
+                            <input type="hidden" asp-for="@Model.response.Id" value="@request.Id" />
+                            <input type="hidden" asp-for="@Model.response.ForumID" value="@request.ForumID" />
+                            <input type="hidden" asp-for="@Model.response.UID" value="@request.UID" />
+                            <input type="hidden" asp-for="@Model.response.Pending" value=0 />
+                            <input type="hidden" asp-for="@Model.response.Status" value=2 />
+                            <button type="submit">Deny</button>
+                        </form>
+                    </td>
+                </tr>
+               
+            }
+        </table>
+    </div>
+</body>
+</html>

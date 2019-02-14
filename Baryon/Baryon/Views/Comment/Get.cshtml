@@ -1,0 +1,51 @@
+﻿@model CommentViewModel
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Comments</title>
+</head>
+<body>
+    <div>
+        <h1>@Model.PostInf.PostTitle</h1>
+        <h3>@Model.PostInf.PostText</h3>
+        <table>
+            <tr>
+                <td>
+                    Likes: @Model.PostInf.Likes
+                </td>
+                <td>
+                    <form asp-action="PostLike">
+                        <input type="hidden" asp-for="@Model.PostInf.PostId" value="@Model.PostInf.PostId" />
+                        <input type="submit" value="Like" />
+                    </form>
+                </td>
+            </tr>
+        </table>
+
+        <table>
+            @foreach (var comment in Model.Comments)
+            {
+                <tr>
+                    <td>
+                        @comment.Text
+                    </td>
+                </tr>
+                <tr>
+                    <td>User: @comment.UID</td>
+                    <td>Likes: @comment.Likes</td>
+                    <td>
+                        <form asp-action="CommentLike">
+                            <input type="hidden" asp-for="@Model.CommentId.CommentId" value="@comment.CommentId" />
+                            <input type="hidden" asp-for="@Model.CommentId.Thread" value="@Model.PostInf.PostId" />
+                            <input type="submit" value="Like" />
+                        </form>
+                    </td>
+                    <td>Comment Date: @comment.Date</td>
+                </tr>
+            }
+        </table>
+    </div>
+    <div><a asp-controller="Comment" asp-action="Post" asp-route-id="@Model.PostInf.PostId">Comment</a></div>
+
+</body>
+</html>

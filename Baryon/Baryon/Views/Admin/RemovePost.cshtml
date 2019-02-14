@@ -1,0 +1,20 @@
+﻿@model Post
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title>Dark Matter</title>
+</head>
+<body>
+
+    <h1>Are you sure you would like to remove the following Post?:</h1>
+
+    <p>Doing this will remove all of the comments associated with this post.</p>
+    <p>@Model.PostTitle</p>
+    <p>@Model.PostText</p>
+    <form method="post">
+
+        <input type="hidden" asp-for="ForumId" value="@Model.ForumId" />
+        <input type="hidden" asp-for="PostId" value="@Model.PostId" />
+        <input type="submit" name="Save" value="Submit" />
+    </form>
+</body>
+</html>
