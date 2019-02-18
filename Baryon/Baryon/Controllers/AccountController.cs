@@ -65,15 +65,6 @@ namespace Baryon.Controllers
                     _logger.LogInformation("User logged in.");
                     return RedirectToLocal(returnUrl);
                 }
-                //if (result.RequiresTwoFactor)
-                //{
-                //    return RedirectToAction(nameof(LoginWith2fa), new { returnUrl, model.RememberMe });
-                //}
-                //if (result.IsLockedOut)
-                //{
-                //    _logger.LogWarning("User account locked out.");
-                //    return RedirectToAction(nameof(Lockout));
-                //}
                 else
                 {
                     ModelState.AddModelError(string.Empty, "Invalid login attempt.");
@@ -261,7 +252,7 @@ namespace Baryon.Controllers
             }
             else
             {
-                return RedirectToAction(nameof(HomeController.Index));
+                return RedirectToAction(nameof(HomeController.Index),"Home");
             }
         }
 

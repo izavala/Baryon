@@ -159,11 +159,10 @@ namespace Baryon.Controllers
             _edit.UpdateModRequest(req);
             return Redirect(nameof(ModRequest));
         }
-        public IActionResult RemoveComment(int id )
+        public IActionResult RemoveComment(CommentViewModel id )
         {
-            
-            _edit.RemoveComment(id);
-            return View("Home");
+            _edit.RemoveComment(id.CommentId.CommentId);
+            return RedirectToAction(nameof(Sub),"Admin",id.PostInf.ForumId);
         }
         
 
